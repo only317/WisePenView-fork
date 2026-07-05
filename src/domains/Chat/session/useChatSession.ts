@@ -39,6 +39,19 @@ const buildFrontendStates = ({
     });
   }
 
+  if (workspaceContext?.draftAgent) {
+    frontendStates.push({
+      key: 'draft_agent',
+      value: {
+        resource_id: workspaceContext.draftAgent.resourceId,
+        draft_version: workspaceContext.draftAgent.draftVersion,
+        spec: workspaceContext.draftAgent.spec,
+        assets: workspaceContext.draftAgent.assets ?? [],
+        updated_at: workspaceContext.draftAgent.updatedAt,
+      },
+    });
+  }
+
   const activeResources = (selectedResources ?? []).filter((resource) => resource.enabled);
   if (activeResources.length > 0) {
     frontendStates.push({

@@ -2,6 +2,7 @@
  * Mock 服务注册表：仅绑定 *Services.mock.ts
  */
 import { AdminServicesMock } from '@/domains/Admin/mock/AdminServices.mock';
+import { AgentServicesMock } from '@/domains/Agent/mock/AgentServices.mock';
 import { AuthServicesMock } from '@/domains/Auth/mock/AuthServices.mock';
 import { createChatServicesMock } from '@/domains/Chat/mock/ChatServices.mock';
 import { DocumentServicesMock } from '@/domains/Document/mock/DocumentServices.mock';
@@ -25,6 +26,7 @@ const chatService = createChatServicesMock({
 });
 
 const mockServicesValue: ServicesContextValue = {
+  agentService: AgentServicesMock,
   adminService: AdminServicesMock,
   authService: AuthServicesMock,
   chatService: chatService,

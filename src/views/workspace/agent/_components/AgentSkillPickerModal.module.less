@@ -1,0 +1,62 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+}
+
+.treeNav {
+  flex: 1;
+  min-height: 280px;
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-sm);
+  background: var(--surface);
+}
+
+.tree {
+  font-size: var(--font-size-base);
+
+  :global(.wisepen-tree__item) {
+    padding: 1px 0;
+  }
+
+  :global(.wisepen-tree__switcher) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+  }
+
+  :global(.wisepen-tree__checkbox) {
+    display: none;
+  }
+
+  :global(.wisepen-tree__content) {
+    min-height: 24px;
+    border-radius: var(--radius-sm, 4px);
+    transition: background-color 0.2s;
+  }
+
+  :global(.wisepen-tree__item[aria-selected='true'] .wisepen-tree__content) {
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent) !important;
+  }
+
+  :global(.wisepen-tree__title) {
+    line-height: 24px;
+  }
+}
+
+.nodeTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

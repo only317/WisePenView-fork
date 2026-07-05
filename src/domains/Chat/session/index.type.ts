@@ -4,9 +4,27 @@ export interface ChatFrontendState {
   disabled?: boolean;
 }
 
+export interface ChatDraftAgentAssetContext {
+  id: string;
+  name: string;
+  path: string;
+  assetResourceType?: string;
+  uploadStatus?: string;
+  objectKey?: string;
+}
+
+export interface ChatDraftAgentContext {
+  resourceId: string;
+  draftVersion: number;
+  spec: unknown;
+  assets?: ChatDraftAgentAssetContext[];
+  updatedAt?: string;
+}
+
 export interface ChatWorkspaceContext {
   resourceId: string;
   editorType: string;
+  draftAgent?: ChatDraftAgentContext;
 }
 
 export interface ChatSelectedResourceContext {

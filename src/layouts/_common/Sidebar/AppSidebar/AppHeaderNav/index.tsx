@@ -38,15 +38,18 @@ function AppHeaderNav({ collapsed, onSessionCreated }: AppHeaderNavProps) {
   const isSkillActive =
     location.pathname.startsWith('/app/workspace/skill') ||
     location.pathname.startsWith('/app/skill');
+  const isAgentActive = location.pathname.startsWith('/app/workspace/agent');
   const selectedKeys = isChatActive
     ? ['/app/chat']
-    : isSkillActive
-      ? ['/app/workspace/skill']
-      : isDriveActive
-        ? ['/app/drive']
-        : isGroupActive
-          ? ['/app/my-group']
-          : [];
+    : isAgentActive
+      ? ['/app/workspace/agent']
+      : isSkillActive
+        ? ['/app/workspace/skill']
+        : isDriveActive
+          ? ['/app/drive']
+          : isGroupActive
+            ? ['/app/my-group']
+            : [];
   const { run: runCreateSession, loading: createSessionLoading } = useRequest(
     async () => chatService.createSession(),
     {
@@ -113,6 +116,10 @@ function AppHeaderNav({ collapsed, onSessionCreated }: AppHeaderNavProps) {
 
   const handleCreateSkill = () => {
     navigate('/app/workspace/skill');
+  };
+
+  const handleCreateAgent = () => {
+    navigate('/app/workspace/agent');
   };
 
   const { loading: creatingDrawio, run: runCreateDrawio } = useRequest(
@@ -204,6 +211,17 @@ function AppHeaderNav({ collapsed, onSessionCreated }: AppHeaderNavProps) {
             <Puzzle size={18} />
           </span>
           {!collapsed && <span className={styles.menuLabel}>新建 Skill</span>}
+        </ListBoxItem>
+        <ListBoxItem
+          id="new-agent"
+          textValue="新建 Agent"
+          className={clsx(styles.menuItem, collapsed && styles.menuItemCollapsed)}
+          onPress={handleCreateAgent}
+        >
+          <span className={styles.menuIcon}>
+            <Bot size={18} />
+          </span>
+          {!collapsed && <span className={styles.menuLabel}>新建 Agent</span>}
         </ListBoxItem>
         <ListBoxItem
           id="/app/chat"

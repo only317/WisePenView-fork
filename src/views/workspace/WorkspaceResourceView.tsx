@@ -12,6 +12,7 @@ import {
 import { Button } from '@heroui/react';
 import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import AgentView from './agent';
 import DrawioView from './drawio';
 import NoteView from './note';
 import OfficeView from './office';
@@ -58,6 +59,10 @@ function WorkspaceResourceView() {
 
   if (editorType === RESOURCE_EDITOR_TYPE.SKILL) {
     return <SkillView resourceId={id} />;
+  }
+
+  if (editorType === RESOURCE_EDITOR_TYPE.AGENT) {
+    return <AgentView resourceId={id} />;
   }
 
   if (!id) {

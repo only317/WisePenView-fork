@@ -22,7 +22,8 @@ function WorkspaceLayout() {
   const setChatPanelDraftOpen = useChatPanelStore((state) => state.setChatPanelDraftOpen);
   const currentSessionId = useCurrentChatSessionStore((state) => state.currentSessionId);
   const hasSessionId = Boolean(currentSessionId);
-  const shouldRenderChatPanel = hasSessionId || chatPanelDraftOpen;
+  const chatPanelEnabled = layoutConfig.chatPanel !== false;
+  const shouldRenderChatPanel = chatPanelEnabled && (hasSessionId || chatPanelDraftOpen);
   const safeChatPanelCollapsed = !shouldRenderChatPanel || chatPanelCollapsed;
   const resourceRouteMatch = useMatch('/app/workspace/:editorType/:id');
   const { rootRef, chatResizeGuideRef, chatPanelWidth, chatResizing, onResizeStart } =
@@ -91,10 +92,7 @@ function WorkspaceLayout() {
         className={clsx(styles.leftSider, sidebarCollapsed && styles.leftSiderCollapsed)}
         aria-label="资源侧边栏"
       >
-        <DriveSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={handleSidebarToggle}
-        />
+        <DriveSidebar collapsed={sidebarCollapsed} onToggle={handleSidebarToggle} />
       </aside>
 
       <div className={styles.middleLayout}>
@@ -110,7 +108,7 @@ function WorkspaceLayout() {
             </button>
           </div>
         )}
-        <main className={`${styles.middleContent} ${styles.workspaceContent}`}>
+        <main className={clsx(styles.middleContent, styles.workspaceContent)}>
           <WorkspaceFrame
             className={layoutConfig.className}
             bodyClassName={layoutConfig.bodyClassName}
@@ -136,7 +134,11 @@ function WorkspaceLayout() {
         )}
         <div className={styles.rightSiderInner}>
           {shouldRenderChatPanel ? (
-            <ChatPanel collapsed={safeChatPanelCollapsed} workspaceContext={chatWorkspaceContext} />
+            <ChatPanel
+              collapsed={safeChatPanelCollapsed}
+              workspaceContext={chatWorkspaceContext}
+              resolveWorkspaceContext={layoutConfig.resolveChatWorkspaceContext}
+            />
           ) : null}
         </div>
       </aside>

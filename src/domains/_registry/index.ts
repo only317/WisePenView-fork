@@ -31,6 +31,7 @@
 
 export {
   useAdminService,
+  useAgentService,
   useAuthService,
   useChatService,
   useDocumentService,

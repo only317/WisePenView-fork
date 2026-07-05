@@ -1,4 +1,5 @@
 import type { ChatModel, ChatModelTag, ChatWorkspaceContext } from '@/domains/Chat';
+import type { ResolveChatWorkspaceContext } from '@/layouts/Workspace/WorkspaceOutletContext';
 
 export type ModelTag = ChatModelTag;
 export type Model = ChatModel;
@@ -10,6 +11,7 @@ export interface ChatPanelProps {
   fullWidth?: boolean;
   onNewChat?: () => void;
   workspaceContext?: ChatWorkspaceContext;
+  resolveWorkspaceContext?: ResolveChatWorkspaceContext;
 }
 
 export interface Message {

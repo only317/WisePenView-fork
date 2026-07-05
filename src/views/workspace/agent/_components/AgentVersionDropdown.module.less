@@ -1,0 +1,38 @@
+.trigger {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 0 var(--space-md);
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface-secondary);
+  color: var(--primary);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    background: var(--surface-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  &[data-disabled] {
+    color: var(--muted);
+    cursor: not-allowed;
+  }
+}
+
+.triggerText {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+}

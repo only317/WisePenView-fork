@@ -4,6 +4,7 @@
 export {
   ServicesProvider,
   useAdminService,
+  useAgentService,
   useAuthService,
   useChatService,
   useDocumentService,

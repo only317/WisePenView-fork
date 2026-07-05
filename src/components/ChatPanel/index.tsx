@@ -28,7 +28,13 @@ import MessageList from './MessageList';
 import NewChatButton from './NewChatButton';
 import styles from './style.module.less';
 
-function ChatPanel({ collapsed, fullWidth = false, onNewChat, workspaceContext }: ChatPanelProps) {
+function ChatPanel({
+  collapsed,
+  fullWidth = false,
+  onNewChat,
+  workspaceContext,
+  resolveWorkspaceContext,
+}: ChatPanelProps) {
   const navigate = useNavigate();
   const chatService = useChatService();
   const setChatPanelCollapsed = useChatPanelStore((state) => state.setChatPanelCollapsed);
@@ -173,6 +179,16 @@ function ChatPanel({ collapsed, fullWidth = false, onNewChat, workspaceContext }
     const targetModel = opts?.model ?? currentModel;
     if (!targetModel) return;
     setCurrentModel(targetModel);
+    let resolvedWorkspaceContext = workspaceContext;
+
+    if (resolveWorkspaceContext) {
+      const nextWorkspaceContext = await resolveWorkspaceContext();
+      if (nextWorkspaceContext === null) return;
+      if (nextWorkspaceContext !== undefined) {
+        resolvedWorkspaceContext = nextWorkspaceContext;
+      }
+    }
+
     let targetSessionId = currentSessionId;
 
     if (!targetSessionId) {
@@ -200,7 +216,7 @@ function ChatPanel({ collapsed, fullWidth = false, onNewChat, workspaceContext }
       enableSelected: hasSelectedContext,
       selectedText: selectedContextText,
       sessionId: targetSessionId,
-      workspaceContext,
+      workspaceContext: resolvedWorkspaceContext,
       selectedResources: opts?.activeDocRefs,
       uploadedAttachments: opts?.activeAttachments,
       onDemandSkillIds: opts?.selectedSkills?.map((skill) => skill.skillId),

@@ -2,6 +2,9 @@ import type { ChatWorkspaceContext } from '@/domains/Chat';
 import { useLayoutEffect, type ReactNode } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+export type ResolveChatWorkspaceContext = () =>
+  ChatWorkspaceContext | null | undefined | Promise<ChatWorkspaceContext | null | undefined>;
+
 export interface WorkspaceHeaderConfig {
   fallbackTo?: string;
   backLabel?: string;
@@ -15,7 +18,9 @@ export interface WorkspaceLayoutConfig {
   className?: string;
   bodyClassName?: string;
   header?: WorkspaceHeaderConfig | false;
+  chatPanel?: boolean;
   chatContext?: ChatWorkspaceContext;
+  resolveChatWorkspaceContext?: ResolveChatWorkspaceContext;
 }
 
 export interface WorkspaceOutletContextValue {
@@ -36,6 +41,7 @@ export function useWorkspaceLayoutConfig(config: WorkspaceLayoutConfig) {
 
   useLayoutEffect(() => {
     setLayoutConfig(config);
-    return resetLayoutConfig;
-  }, [config, resetLayoutConfig, setLayoutConfig]);
+  }, [config, setLayoutConfig]);
+
+  useLayoutEffect(() => resetLayoutConfig, [resetLayoutConfig]);
 }

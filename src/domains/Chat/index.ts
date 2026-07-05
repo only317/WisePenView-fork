@@ -27,8 +27,8 @@ export {
   isDocumentPickerScopeRootKey,
   isExpandableDocumentPickerNode,
   isSelectableDocumentPickerNode,
-  mapDriveNodeToDocumentPickerNode,
   mapDocumentPickerNodesToSelectedResources,
+  mapDriveNodeToDocumentPickerNode,
   parseDocumentPickerTreeKey,
   replaceDocumentPickerTreeNodeChildren,
 } from './mapper/documentPicker.mapper';
@@ -73,6 +73,8 @@ export type {
 } from './service/index.type';
 export type {
   ChatCompletionRequest,
+  ChatDraftAgentAssetContext,
+  ChatDraftAgentContext,
   ChatFrontendState,
   ChatSelectedResourceContext,
   ChatUploadedAttachmentContext,
